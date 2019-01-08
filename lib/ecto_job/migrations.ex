@@ -59,7 +59,8 @@ defmodule EctoJob.Migrations do
           add(:max_attempts, :integer, null: false, default: 5)
           add(:params, :map, null: false)
           add(:notify, :string)
-          timestamps()
+          add(:inserted_at, :naive_datetime_usec)
+          add(:updated_at, :naive_datetime_usec)
         end
 
       execute("""
