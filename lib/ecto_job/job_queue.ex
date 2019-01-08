@@ -62,7 +62,7 @@ defmodule EctoJob.JobQueue do
   """
   @callback perform(multi :: Multi.t(), params :: map) :: any()
 
-  defmacro __using__(table_name: table_name) do
+  defmacro __using__(table_name: table_name, timestamp_type: timestamp_type) do
     quote do
       use Ecto.Schema
       @behaviour EctoJob.JobQueue
@@ -82,7 +82,7 @@ defmodule EctoJob.JobQueue do
         field(:params, :map)
         # Payload used to notify that job has completed
         field(:notify, :string)
-        timestamps()
+        timestamps(type: unquote(timestamp_type))
       end
 
       @doc """
